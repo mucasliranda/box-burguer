@@ -19,7 +19,7 @@ export function Header() {
 
   const navigation = [
     {
-      name: "Home",
+      name: "Início",
       href: "/",
       icon: Home,
       onClick: () => {
