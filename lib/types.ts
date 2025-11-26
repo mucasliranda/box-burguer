@@ -3,7 +3,7 @@ export interface Product {
   name: string
   description: string
   basePrice: number
-  category: "burger" | "side" | "drink" | "combo"
+  category: "burger" | "side" | "drink" | "dessert"
   image: string
   ingredients?: Ingredient[]
   includeFries?: boolean

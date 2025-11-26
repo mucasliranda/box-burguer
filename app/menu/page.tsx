@@ -16,7 +16,7 @@ export default function MenuPage() {
     { id: "burger", name: "Hambúrgueres" },
     { id: "side", name: "Acompanhamentos" },
     { id: "drink", name: "Bebidas" },
-    { id: "combo", name: "Combos" },
+    { id: "dessert", name: "Sobremesas" },
   ]
 
   const filteredProducts = categoryFilter !== "all" ? products.filter((p) => p.category === categoryFilter) : products
@@ -24,7 +24,6 @@ export default function MenuPage() {
   const handleCategoryChange = (categoryId: string) => {
     if (categoryFilter === categoryId) return
     startTransition(async () => {
-      // await new Promise((resolve) => setTimeout(resolve, 1000))
       setCategoryFilter(categoryId)
     })
   }
