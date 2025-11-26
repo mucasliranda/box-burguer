@@ -293,7 +293,7 @@ export default function ProductPage() {
               </Card>
 
               {/* Quantity and Add to Cart */}
-              <Card className="sticky bottom-4">
+              <Card className="lg:sticky bottom-4">
                 <CardContent className="p-6 space-y-4">
                   <div className="flex items-center justify-between">
                     <Label className="text-foreground">Quantidade:</Label>
