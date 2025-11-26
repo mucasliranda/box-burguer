@@ -13,8 +13,12 @@ import { Label } from "@/components/ui/label"
 import { Minus, Plus, ArrowLeft, Zap } from "lucide-react"
 import { useCartStore } from "@/lib/cart-store"
 import type { CartItem } from "@/lib/types"
+import { useParams } from "next/navigation"
+import { useToast } from "@/hooks/use-toast"
 
-export default function ProductPage({ params }: { params: { id: string } }) {
+export default function ProductPage() {
+  const { toast } = useToast()
+  const params = useParams<{ id: string }>()
   const router = useRouter()
   const addItem = useCartStore((state) => state.addItem)
   const [quantity, setQuantity] = useState(1)
@@ -94,6 +98,11 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       totalPrice: totalPrice * quantity,
       id: `${product.id}-${Date.now()}`,
     }
+
+    toast({
+      title: "Produto adicionado ao carrinho",
+      description: "O produto foi adicionado ao carrinho com sucesso.",
+    })
 
     addItem(cartItem)
     router.push("/cart")
