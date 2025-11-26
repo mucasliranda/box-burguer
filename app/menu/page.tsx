@@ -1,15 +1,15 @@
 "use client"
 
-import { useEffect, useState, useTransition } from "react"
+import { useEffect, useState } from "react"
 import { Header } from "@/components/header"
 import { ProductCard } from "@/components/product-card"
 import { products } from "@/lib/products-data"
 import { Button } from "@/components/ui/button"
 import { ProductCardSkeleton } from "@/components/product-card-skeleton"
+import { useCategory } from "@/lib/category-context"
 
 export default function MenuPage() {
-  const [categoryFilter, setCategoryFilter] = useState<string>("all")
-  const [isPending, startTransition] = useTransition()
+  const { category: categoryFilter, setCategory: setCategoryFilter } = useCategory()
 
   const categories = [
     { id: "all", name: "Todos" },
@@ -19,13 +19,8 @@ export default function MenuPage() {
     { id: "dessert", name: "Sobremesas" },
   ]
 
-  const filteredProducts = categoryFilter !== "all" ? products.filter((p) => p.category === categoryFilter) : products
-
   const handleCategoryChange = (categoryId: string) => {
-    if (categoryFilter === categoryId) return
-    startTransition(async () => {
-      setCategoryFilter(categoryId)
-    })
+    setCategoryFilter(categoryId)
   }
 
   return (
@@ -96,7 +91,9 @@ function ProductsList({ categoryFilter }: { categoryFilter: string }) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {filteredProducts.map((product) => <ProductCard key={product.id} product={product} />)}
+      {filteredProducts.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
     </div>
   )
 }

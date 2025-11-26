@@ -7,15 +7,46 @@ import { useCartStore } from "@/lib/cart-store"
 import { Badge } from "@/components/ui/badge"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/components/ui/sheet"
 import { useState } from "react"
+import { useCategory } from "@/lib/category-context"
+import { useRouter, usePathname } from "next/navigation"
 
 export function Header() {
   const totalItems = useCartStore((state) => state.getTotalItems())
   const [open, setOpen] = useState(false)
+  const { setCategory } = useCategory()
+  const router = useRouter()
+  const pathname = usePathname()
 
   const navigation = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "Cardápio", href: "/menu", icon: UtensilsCrossed },
-    { name: "Sobremesas", href: "/menu?category=dessert", icon: Package },
+    {
+      name: "Home",
+      href: "/",
+      icon: Home,
+      onClick: () => {
+        router.push("/")
+        setOpen(false)
+      },
+    },
+    {
+      name: "Cardápio",
+      href: "/menu",
+      icon: UtensilsCrossed,
+      onClick: () => {
+        setCategory("all")
+        router.push("/menu")
+        setOpen(false)
+      },
+    },
+    {
+      name: "Combos",
+      href: "/menu",
+      icon: Package,
+      onClick: () => {
+        setCategory("combo")
+        router.push("/menu")
+        setOpen(false)
+      },
+    },
   ]
 
   return (
@@ -36,13 +67,13 @@ export function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           {navigation.map((item) => (
-            <Link
+            <button
               key={item.name}
-              href={item.href}
-              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+              onClick={item.onClick}
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors cursor-pointer"
             >
               {item.name}
-            </Link>
+            </button>
           ))}
         </nav>
 
@@ -82,15 +113,14 @@ export function Header() {
                 {navigation.map((item) => {
                   const Icon = item.icon
                   return (
-                    <Link
+                    <button
                       key={item.name}
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 rounded-lg text-foreground hover:bg-accent hover:text-primary transition-all duration-200 group"
+                      onClick={item.onClick}
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg text-foreground hover:bg-accent hover:text-primary transition-all duration-200 group text-left w-full"
                     >
                       <Icon className="h-5 w-5 group-hover:scale-110 transition-transform" />
                       <span className="text-base font-medium">{item.name}</span>
-                    </Link>
+                    </button>
                   )
                 })}
               </nav>

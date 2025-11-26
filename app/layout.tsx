@@ -4,6 +4,7 @@ import { Orbitron, Rajdhani } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
+import { CategoryProvider } from "@/lib/category-context"
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -46,10 +47,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${orbitron.variable} ${rajdhani.variable} font-body antialiased flex items-center justify-center`}>
-        {children}
-        <Analytics />
-        <Toaster />
+      <body className={`${orbitron.variable} ${rajdhani.variable} font-body antialiased`}>
+        <CategoryProvider>
+          {children}
+          <Analytics />
+          <Toaster />
+        </CategoryProvider>
       </body>
     </html>
   )
