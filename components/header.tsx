@@ -38,11 +38,11 @@ export function Header() {
       },
     },
     {
-      name: "Combos",
+      name: "Sobremesas",
       href: "/menu",
       icon: Package,
       onClick: () => {
-        setCategory("combo")
+        setCategory("dessert")
         router.push("/menu")
         setOpen(false)
       },
