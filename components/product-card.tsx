@@ -35,7 +35,7 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
       <CardContent className="p-4">
         <h3 className="font-bold text-lg text-foreground mb-1 text-balance">{product.name}</h3>
-        <p className="text-sm text-muted-foreground mb-3 line-clamp-2 text-pretty">{product.description}</p>
+        <p className="text-sm min-h-[120px] text-muted-foreground mb-3 line-clamp-6 text-pretty">{product.description}</p>
         <p className="text-2xl font-bold text-primary">R$ {product.basePrice.toFixed(2)}</p>
       </CardContent>
       <CardFooter className="p-4 pt-0">
